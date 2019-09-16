@@ -1,0 +1,19 @@
+.el-main {
+    background: #f1f2f7;
+}
+
+.breadcrumb-container {
+    background: #808080;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+
+}
+.el-submenu__title {
+    background: #dcdcdc;
+}
+
+
+
+.el-breadcrumb__inner {
+    color: white;
+}

@@ -1,0 +1,64 @@
+.content {
+    position: relative;
+}
+
+.base-title {
+    background: #B3C0D1;
+    text-align: left;
+    padding: 5px;
+}
+
+.base-main {
+    background: #dddddd;
+}
+
+.cus-tabel-title > .el-col {
+    background: #D0D0D0;
+    margin: 0 -1px -1px 0;
+    border: solid 1px;
+}
+
+.cus-tabel-content > .el-col {
+    background: #efecec;
+    margin: 0 -1px -1px 0;
+    border: solid 1px;
+}
+
+.rebate-rule {
+    padding: 20px;
+    background: white;
+    margin-top: 40px;
+}
+
+.po-pup {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    width: 800px;
+    height: 400px;
+    background: #dcdcdc;
+    z-index: 10000;
+    border-radius: 10px;
+}
+
+.po-pup-title {
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 5px;
+}
+
+.po-pup-search {
+    background: white;
+    margin: 5px;
+    border: solid 1px #B3C0D1;
+    padding: 5px 5px 50px 5px;
+}
+
+.po-pup-tabel{
+    padding: 5px 5px 50px 5px;
+}
