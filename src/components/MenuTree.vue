@@ -29,7 +29,6 @@
       //添加标签页
       addTab (node) {
         console.log(JSON.stringify(node))
-        this.$store.dispatch('setEditableTabsValue', node.id)
         let hasAdd = false// 是否已添加该节点
         this.$store.getters.tabPanes.forEach(item => {
           if (item.id == node.id) {
@@ -39,6 +38,7 @@
         if (!hasAdd) {
           this.$store.dispatch('addTabPane', node)
         }
+        this.$store.dispatch('setEditableTabsValue', node.id)
       },
     },
     props: {

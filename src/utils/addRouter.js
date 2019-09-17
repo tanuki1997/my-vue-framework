@@ -13,7 +13,6 @@ export function addRouter (routerlist, parentPath) {
       id: r.id,
     }
 
-
     if (r.url.indexOf('/') != -1) {
       //菜单目录
       e_new.fullPath = parentPath + r.url

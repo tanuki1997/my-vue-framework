@@ -1,9 +1,11 @@
 import MenuTree from '@components/MenuTree'
 import de from 'element-ui/src/locale/lang/de'
+import { getUserInfSession } from '@/utils/common'
 
 export default {
   data () {
     return {
+      userInfo: getUserInfSession(),
       editableTabsValue: 'second',
       editableTabs: [{
         title: 'Tab 1',
@@ -20,11 +22,23 @@ export default {
   // created () {
   //   this.activeIndex = this.$store.getters.editableTabsValue
   // },
-  // watch: {
-  //   '$store.getters.editableTabsValue' (val) {
-  //     this.activeIndex = val
-  //   }
-  // },
+  watch: {
+    '$store.getters.editableTabsValue' (val) {
+      let router
+      this.$store.getters.tabPanes.forEach(item => {
+        if (val == item.id) {
+          router = item
+        }
+      })
+      this.$router.push({ path: router.fullPath })
+    },
+
+    '$store.getters.tabPanes' (val) {
+      if (val.length == 0) {
+        this.$router.push('/manage')
+      }
+    }
+  },
 
   methods: {
     onSubmit () {
@@ -45,17 +59,11 @@ export default {
     },
 
     clickTab (tab, event) {
-
-      let router
-      this.$store.getters.tabPanes.forEach(item => {
-        if (tab.name == item.id) {
-          router = item
-        }
-      })
-      this.$router.push(router.fullPath)
+      this.$store.commit('set_editableTabsValue', tab.name)
     },
 
     removeTab (targetName) {
+      this.$store.commit('remove_tabPane', targetName)
       console.log(targetName)
     },
 

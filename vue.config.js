@@ -22,6 +22,7 @@ module.exports = {
 
       .set('@api', resolve('src/api'))
       .set('@utils', resolve('src/utils'))
+      .set('@store', resolve('src/store'))
   },
   baseUrl: '/',
   devServer: {

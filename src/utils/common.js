@@ -3,7 +3,8 @@ const USER_INFO_KEY = 'user_info'
 
 //
 export function setUserInfSession (userInfo) {
-  return sessionStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo))
+  userInfo.userName = 'testName'
+  sessionStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo))
 }
 
 export function getUserInfSession () {

@@ -10,13 +10,13 @@
     color: #333;
     line-height: 60px;
   }
+
   .el-aside {
     color: #333;
   }
 </style>
 
 <script>
-  // @ is an alias to /src
   import Index from '@/views/Index.vue'
   export default {
     name: 'home',
@@ -27,8 +27,6 @@
       return {
         menu_data: null,
       }
-
-    },
-
+    }
   }
 </script>

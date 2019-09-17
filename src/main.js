@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import App from './views/App.vue'
-import Main from'./views/Main'
+import Main from './views/Main'
 import store from './store/store'
 import router from './router/index'
 import Element from 'element-ui'
 import MaskLayer from './components/MaskLayer'
-
 
 /*引入资源请求插件*/
 import VueResource from 'vue-resource'
@@ -17,13 +16,11 @@ import id from 'element-ui/src/locale/lang/id'
 
 Vue.use(Element)
 Vue.use(VueResource)
-Vue.component('Main',Main)
-Vue.component('MaskLayer',MaskLayer)
+Vue.component('Main', Main)
+Vue.component('MaskLayer', MaskLayer)
 Vue.config.productionTip = false
 Vue.prototype.$api = api
 Vue.prototype.$common = common
-
-
 
 new Vue({
   router,

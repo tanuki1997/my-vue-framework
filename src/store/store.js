@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from '@api/api'
+import * as storeCache from '@utils/storeCache'
 
 Vue.use(Vuex)
+
 const store = new Vuex.Store({
   state: {
     hasGetRouter: false,//是否从后台获取过路由
-    RouterList: [],//所有的路由集合
     menuRouter: [],//后台获取的菜单路由
     tabPanes: [],//标签页
     showMaskLayer: false,
@@ -14,7 +14,6 @@ const store = new Vuex.Store({
   },
   getters: {
     hasGetRouter: state => state.hasGetRouter,
-    RouterList: state => state.RouterList,
     menuRouter: state => state.menuRouter,
     tabPanes: state => state.tabPanes,
     showMaskLayer: state => state.showMaskLayer,
@@ -25,19 +24,52 @@ const store = new Vuex.Store({
     set_router: function (state, routerList) {
       state.menuRouter = routerList
       state.hasGetRouter = true
+      storeCache.hasGetRouterCache(state.hasGetRouter)
+      storeCache.menuRouterCache(state.menuRouter)
     },
     set_maskValue: function (state, value) {
       state.showMaskLayer = value
     },
     add_tabPane: function (state, node) {
-      state.tabPanes.push(node)
+      let addNodes = Object.assign({}, node)
+      state.tabPanes.push(addNodes)
+      storeCache.tabPanesCache(state.tabPanes)
     },
-    // remove_tabPane:function(state,node){
-    //
-    // }
+    remove_tabPane: function (state, nodeId) {
+      let tabPanes = state.tabPanes
+      let removeIndex
+      if (tabPanes.length == 1) {
+        state.tabPanes.splice(0, 1)
+        storeCache.tabPanesCache(state.tabPanes)
+        return
+      }
+      tabPanes.forEach((item, index) => {
+        if (item.id == nodeId) {
+          removeIndex = index
+        }
+      })
+      if (removeIndex != 0) {
+        state.editableTabsValue = state.tabPanes[removeIndex - 1].id + ''
+      } else {
+        state.editableTabsValue = state.tabPanes[removeIndex + 1].id + ''
+      }
+      state.tabPanes.splice(removeIndex, 1)
+      storeCache.tabPanesCache(state.tabPanes)
+      storeCache.activiryTabIndexCache(state.editableTabsValue)
+    },
+
     set_editableTabsValue: function (state, value) {
       state.editableTabsValue = value + ''
+      storeCache.activiryTabIndexCache(state.editableTabsValue)
     },
+
+    get_state_cache: function (state) {
+      state.hasGetRouter = storeCache.getHasGetRouterCache()
+      state.menuRouter = storeCache.getMenuRouterCache()
+      state.editableTabsValue = storeCache.getActiviryTabIndexCache()
+      state.tabPanes = storeCache.getTabPanesCache()
+    },
+
   },
   actions: {
     setRouterList (ctx, routerList) {
@@ -52,6 +84,9 @@ const store = new Vuex.Store({
     setEditableTabsValue: function (ctx, value) {
       ctx.commit('set_editableTabsValue', value)
     },
+    getStateCache: function (ctx) {
+      ctx.commit('get_state_cache')
+    }
   }
 })
 export default store
